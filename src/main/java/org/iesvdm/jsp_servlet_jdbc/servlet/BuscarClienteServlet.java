@@ -20,12 +20,15 @@ public class BuscarClienteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //aunque nunca va a pasar
         request.setAttribute("errorBuscar", "Error");
         RequestDispatcher dispatcher = request.getRequestDispatcher("ListarClienteServlet");
         try {
+            //obtener el cliente
             Optional<Cliente> res=this.clienteDAO.find(Integer.parseInt(request.getParameter("codigo")));
             if (res.isPresent()){
                 request.setAttribute("cliente", res.get());
+                //enviarlo a detalle
                 dispatcher = request.getRequestDispatcher("WEB-INF/banco/detalle.jsp");
             }
         }catch (Exception e){
@@ -39,6 +42,7 @@ public class BuscarClienteServlet extends HttpServlet {
         String nombre = request.getParameter("nombre");
         //buscar segun el nombre
         List<Cliente> res=this.clienteDAO.find(nombre);
+        //segun cantidad hacer cosa diferente
         if (res.isEmpty()){
             request.setAttribute("errorBuscar", "No encontrado");
             dispatcher = request.getRequestDispatcher("ListarClienteServlet");

@@ -15,18 +15,16 @@ import java.util.List;
 
 @WebServlet(name = "BorrarClienteServlet", value = "/BorrarClienteServlet")
 public class BorrarClienteServlet extends HttpServlet {
-    private ClienteDAO socioDAO = new ClienteDAOImpl();
+    private ClienteDAO clienteDAO = new ClienteDAOImpl();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = null;
         try {
-            int socioId = Integer.parseInt(request.getParameter("codigo"));
+            int clienteId = Integer.parseInt(request.getParameter("codigo"));
             //borrar segun la id
-            this.socioDAO.delete(socioId);
+            this.clienteDAO.delete(clienteId);
         }catch (NumberFormatException e){
-        }finally {
-            dispatcher = request.getRequestDispatcher("ListarClienteServlet");
         }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ListarClienteServlet");
         dispatcher.forward(request,response);
     }
 }

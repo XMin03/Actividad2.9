@@ -17,18 +17,23 @@
 <body>
 <h1>Gestión de Usuarios</h1>
 <%
+    /*CRUD DE USUARIO*/
     Connection conexion=null;
     Statement s=null;
     ResultSet listado=null;
+
     try{
+        //conexion
         Class.forName("com.mysql.cj.jdbc.Driver");
         conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto_jsp_jdbc","mattialu", "");
         s = conexion.createStatement();
+        //listar
         listado = s.executeQuery ("SELECT * FROM usuario");
 %>
 <table>
     <tr><th>Usuario</th><th>Contraseña</th><th><a href="formularioUsuario.jsp">+</a></th></tr>
     <%
+        //imprir
         while (listado.next()) {
             out.println("<tr><td>"+listado.getString("usuario") + "</td>");
             out.println("<td>" + listado.getString("contrasena") + "</td>");
@@ -45,7 +50,6 @@
     </tr>
     <%
         }
-
             conexion.close();
             s.close();
             listado.close();

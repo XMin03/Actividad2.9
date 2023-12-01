@@ -16,10 +16,11 @@ import java.util.Optional;
 
 @WebServlet(name = "EditarClienteServlet", value = "/EditarClienteServlet")
 public class EditarClienteServlet extends HttpServlet {
-    private ClienteDAO socioDAO = new ClienteDAOImpl();
+    private ClienteDAO clienteDAO = new ClienteDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //reenviar a editar
         RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/banco/editar.jsp");
         dispatcher.forward(req, resp);
     }
@@ -27,16 +28,14 @@ public class EditarClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        Optional<Cliente> optionalSocio = UtilServlet.validaGrabar(request);
+        //crear el cliente(aprovechamos de grabar)
+        Optional<Cliente> optionalCliente = UtilServlet.validaGrabar(request);
 
-        if (optionalSocio.isPresent()) {
+        if (optionalCliente.isPresent()) {
 
-            Cliente cliente = optionalSocio.get();
-            //update despues de crear el cliente con su id
-            this.socioDAO.update(cliente);
-
-            List<Cliente> listado = this.socioDAO.getAll();
-            request.setAttribute("listado", listado);
+            Cliente cliente = optionalCliente.get();
+            //reemplazarlo
+            this.clienteDAO.update(cliente);
 
             dispatcher = request.getRequestDispatcher("ListarClienteServlet");
         } else {

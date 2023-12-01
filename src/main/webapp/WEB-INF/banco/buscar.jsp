@@ -20,8 +20,11 @@
     </tr>
     <tr>
     <%
+        //obtener la lista de los clientes encontrado
         List<Cliente> listado = (List<Cliente>) request.getAttribute("cliente");
         for (Cliente c:listado) {
+            //imprimir el nombre y pasar la id
+            //(si paso directamente el objeto se convierte en String searia mas facil pasar la id e econtrarlo en vez que crearlo segun esa cadena)
             out.println("<td>" + c.getNombre_completo() + "</td>");
     %>
     <td>

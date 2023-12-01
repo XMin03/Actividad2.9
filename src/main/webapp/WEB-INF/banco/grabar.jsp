@@ -16,6 +16,7 @@
 </head>
 <body>
 <%
+    //en desuso
         int id=-1;
         String nombre =null;
         String direccion = null;

@@ -15,12 +15,12 @@ import java.util.List;
 //clase para listar
 @WebServlet(name = "ListarClienteServlet", value = "/ListarClienteServlet")
 public class ListarClienteServlet extends HttpServlet {
-    private ClienteDAO socioDAO = new ClienteDAOImpl();
+    private ClienteDAO clienteDAO = new ClienteDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //listar todos
-        List<Cliente> listado = this.socioDAO.getAll();
+        List<Cliente> listado = this.clienteDAO.getAll();
         request.setAttribute("listado", listado);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/banco/listado.jsp");
 

@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ClienteDAOImpl extends AbstractDAOImpl implements ClienteDAO {
+    //insert
     @Override
     public void create(Cliente cliente) {
 
@@ -16,15 +17,9 @@ public class ClienteDAOImpl extends AbstractDAOImpl implements ClienteDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ResultSet rsGenKeys = null;
-
         try {
             conn = connectDB();
-
-
-            //1 alternativas comentadas:
-            //Ver también, AbstractDAOImpl.executeInsert ...
-            //Columna fabricante.codigo es clave primaria auto_increment, por ese motivo se omite de la sentencia SQL INSERT siguiente.
-            ps = conn.prepareStatement("INSERT INTO cliente VALUES (?, ? , ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement("INSERT INTO cliente VALUES (?, ? , ?, ?,?)");
 
             int idx = 1;
             ps.setInt(idx++, cliente.getCliente_id());
@@ -45,7 +40,7 @@ public class ClienteDAOImpl extends AbstractDAOImpl implements ClienteDAO {
         }
 
     }
-
+    //list
     @Override
     public List<Cliente> getAll() {
 
@@ -83,10 +78,12 @@ public class ClienteDAOImpl extends AbstractDAOImpl implements ClienteDAO {
         return listCliente;
 
     }
+    //search by name
     @Override
     public List<Cliente> find(String nombre) {
         return this.getAll().stream().filter(c->c.getNombre_completo().contains(nombre)).collect(Collectors.toList());
     }
+    //search by id
     @Override
     public Optional<Cliente> find(int id) {
 
@@ -126,7 +123,7 @@ public class ClienteDAOImpl extends AbstractDAOImpl implements ClienteDAO {
         return Optional.empty();
 
     }
-
+    //update
     @Override
     public void update(Cliente cliente) {
 
@@ -159,7 +156,7 @@ public class ClienteDAOImpl extends AbstractDAOImpl implements ClienteDAO {
         }
 
     }
-
+    //delete
     @Override
     public void delete(int id) {
 

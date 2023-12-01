@@ -13,6 +13,7 @@
     <input type="submit" value="Aceptar" class="bg-primary">
 </form>
 <%=
+/*Errores*/
 session.getAttribute("error") == null ?
         "" : session.getAttribute("error")
 %>

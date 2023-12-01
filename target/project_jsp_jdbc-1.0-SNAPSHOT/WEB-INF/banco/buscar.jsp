@@ -1,4 +1,3 @@
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="org.iesvdm.jsp_servlet_jdbc.model.Cliente" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.

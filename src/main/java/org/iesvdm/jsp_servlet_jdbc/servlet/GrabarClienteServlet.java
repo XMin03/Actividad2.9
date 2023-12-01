@@ -16,19 +16,18 @@ import java.util.Optional;
 
 @WebServlet(name = "GrabarClienteServlet", value = "/GrabarClienteServlet")
 public class GrabarClienteServlet extends HttpServlet {
-    private ClienteDAO socioDAO = new ClienteDAOImpl();
+    private ClienteDAO clienteDAO = new ClienteDAOImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         RequestDispatcher dispatcher = null;
-        Optional<Cliente> optionalSocio = UtilServlet.validaGrabar(request);
-        if (optionalSocio.isPresent()) {
-
-            Cliente cliente = optionalSocio.get();
-            this.socioDAO.create(cliente);
-            List<Cliente> listado = this.socioDAO.getAll();
-            request.setAttribute("listado", listado);
+        //crear el cliente
+        Optional<Cliente> optionalCliente = UtilServlet.validaGrabar(request);
+        if (optionalCliente.isPresent()) {
+            //crear
+            Cliente cliente = optionalCliente.get();
+            this.clienteDAO.create(cliente);
 
             dispatcher = request.getRequestDispatcher("ListarClienteServlet");
         } else {
