@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet(name = "ListarClienteServlet", value = "/ListarClienteServlet")
 public class ListarClienteServlet extends HttpServlet {
     private ClienteDAO clienteDAO = new ClienteDAOImpl();
-
+    //para entrar pon ListarClienteServlet directamente no hay enlaces
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //listar todos

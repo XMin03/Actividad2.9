@@ -19,11 +19,11 @@
     </head>
     <body>
     <%
-
-        String usuario =null;
-        String p1 = null;
+    String usuario =null;
+    String p1 = null;
     String p2 = null;
     ArrayList<String> errores=new ArrayList<>();
+    //comprobaciones de los parametros
     try{
         Objects.requireNonNull(request.getParameter("usuario"));
         if (request.getParameter("usuario").isBlank()) throw new RuntimeException("Parámetro vacío o todo espacios blancos.");
@@ -45,19 +45,22 @@
         errores.add("Contraseña no puede estar vacío");
     }
 
-
+    //si los parametros valen
     if (errores.isEmpty()) {
+        //comprobar contraseña
         if (!p1.equals(p2)){
             errores.add("Contraseñas no iguales");
             session.setAttribute("error", errores);
             response.sendRedirect("formularioUsuario.jsp");
         }else{
+            //conextion
             Connection conn = null;
             PreparedStatement ps = null;
             try {
                 p1= PasswordUtils.hashPassword(p1);
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto_jsp_jdbc", "mattialu", "");
+                //insert
                 String sql = "INSERT INTO usuario VALUES ( " +
                         "?, " + //usuario
                         "?)"; //contrasena
@@ -65,18 +68,16 @@
                 int idx = 1;
                 ps.setString(idx++, usuario);
                 ps.setString(idx++, p1);
-
                 int filasAfectadas = ps.executeUpdate();
+
                 System.out.println("SOCIOS GRABADOS:  " + filasAfectadas);
                 response.sendRedirect("admin.jsp");
             } catch (Exception ex) {
+                //no se ha podido insertar
                 errores.add("Error insertar");
                 session.setAttribute("error", errores);
                 response.sendRedirect("formularioUsuario.jsp");
             } finally {
-                //BLOQUE FINALLY PARA CERRAR LA CONEXIÓN CON PROTECCIÓN DE try-catch
-                //SIEMPRE HAY QUE CERRAR LOS ELEMENTOS DE LA  CONEXIÓN DESPUÉS DE UTILIZARLOS
-                //try { rs.close(); } catch (Exception e) { /* Ignored */ }
                 try {
                     ps.close();
                 } catch (Exception e) { /* Ignored */ }
@@ -85,7 +86,6 @@
                 } catch (Exception e) { /* Ignored */ }
             }
         }
-
     } else {
         session.setAttribute("error", errores);
         response.sendRedirect("formularioUsuario.jsp");

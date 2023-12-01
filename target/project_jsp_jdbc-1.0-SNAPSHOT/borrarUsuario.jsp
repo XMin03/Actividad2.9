@@ -27,28 +27,19 @@
         Connection conn = null;
         PreparedStatement ps = null;
         try {
+            //Conexion
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto_jsp_jdbc","mattialu", "");
-
+            //Delete
             String sql = "DELETE FROM usuario WHERE usuario = ?";
-            //CREO EL OBJETO PreparedStatement
             ps = conn.prepareStatement(sql);
-
-            //A LA HORA DE ESTABLECER EL VALOR DEL PARÁMETRO PARA PODER EJECUTAR
-            //LA QUERY DEBEMOS INDICAR LA POSICIÓN Y UTILIZAR EL SETTER DE TIPO ADECUADO
             ps.setString(1, codigo);
-
-            //CUANDO EJECUTAS SENTENCIAS DML, INSERT, UPDATE, DELETE SE EMPLEA ps.executeUpdate()
             int filasAfectadas = ps.executeUpdate();
 
             System.out.println("SOCIOS BORRADOS:  " + filasAfectadas);
-
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-            //BLOQUE FINALLY PARA CERRAR LA CONEXIÓN CON PROTECCIÓN DE try-catch
-            //SIEMPRE HAY QUE CERRAR LOS ELEMENTOS DE LA  CONEXIÓN DESPUÉS DE UTILIZARLOS
-            //try { rs.close(); } catch (Exception e) { /* Ignored */ }
             try { ps.close(); } catch (Exception e) { /* Ignored */ }
             try { conn.close(); } catch (Exception e) { /* Ignored */ }
         }

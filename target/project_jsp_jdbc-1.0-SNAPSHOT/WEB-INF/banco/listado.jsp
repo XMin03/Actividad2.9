@@ -22,7 +22,7 @@
 <h1>Gestibank</h1>
 <table>
     <tr><th>Codigo</th><th>Nombre</th><th>Direccion</th><th>Telefono</th><th>Fecha de Nacimiento</th></tr>
-    <%
+    <%//listar todos
         List<Cliente> listado = (List<Cliente>) request.getAttribute("listado");
         for (Cliente c:listado) {
             int id = c.getCliente_id();
@@ -31,6 +31,7 @@
             out.println("<td>" + c.getDireccion() + "</td>");
             out.println("<td>" + c.getTelefono() + "</td>");
             out.println("<td>" + c.getFecha_nacimiento() + "</td>");
+            //Editar y borrar
     %>
     <td>
     <form method="get" action="EditarClienteServlet">
@@ -46,6 +47,7 @@
     </td></tr>
     <%
     }
+        //añadir cliente
     %>
     <form method="post" action="GrabarClienteServlet">
     <tr>
@@ -58,7 +60,7 @@
     </tr>
     </form>
     <tr>
-        <%
+        <%//errores de añadir
             ArrayList<String> errores = (ArrayList<String>) request.getAttribute("error");
             if(errores==null){
                 out.println("");
@@ -75,7 +77,7 @@
     <input type="text" name="nombre">
     <input type="submit" value="buscar">
 </form>
-<%
+<%//errores de buscar
     String error = (String)request.getAttribute("errorBuscar");
     if(error==null){
         out.println("");

@@ -18,6 +18,7 @@
     <tr><th>Codigo</th><th>Nombre</th><th>Direccion</th><th>Telefono</th><th>Fecha de Nacimiento</th></tr>
     <tr>
     <%
+        //obtener el cliente e mostrarlo
         Cliente c = (Cliente)request.getAttribute("cliente");
         out.println("<tr><td>"+ c.getCliente_id() + "</td>");
         out.println("<td>" + c.getNombre_completo() + "</td>");

@@ -14,7 +14,7 @@
 </head>
 <body>
 <%
-    //comprobacion basica
+    //en desuso
     boolean valida = true;
     int codigo = -1;
     try {

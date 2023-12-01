@@ -15,6 +15,7 @@
 <form method="post" action="EditarClienteServlet">
     <%
         String codigo=request.getParameter("codigo");
+        //usado para update.jsp
         //codigo=codigo==null? session.getAttribute("codigo").toString() :codigo;
     %>
     <input type="hidden" name="codigo" value="<%=codigo%>">

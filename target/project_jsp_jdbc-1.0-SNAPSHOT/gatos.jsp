@@ -29,18 +29,22 @@
 </style>
 <%
     try {
+        //obtener la altura
         int number=Integer.parseInt(request.getParameter("numero"));
 %>
 <table>
         <%
+        //alto
         for (int i = 0; i < number; i++) {
         %>
         <tr>
             <%
+                //ancho
             for (int j = 1; j < number+i+1; j++) {
             %>
                 <td>
                 <%
+                    //imagen (sacado al azar por sexto sentido)
                 if (!(j+i-number<0)){
                 %>
                   <img src="img/gato.jpg">

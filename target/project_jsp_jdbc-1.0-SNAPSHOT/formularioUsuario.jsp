@@ -14,7 +14,6 @@
 <body>
 <h2>Introduzca los datos del nuevo cliente:</h2>
 <form method="post" action="grabarUsuario.jsp">
-
     Usuario <input type="text" name="usuario"/></br>
     Contraseña <input type="password" name="p1"/></br>
     Repite Contraseña <input type="password" name="p2"/></br>
@@ -22,7 +21,7 @@
 </form>
 <table>
     <tr>
-        <%
+        <%//Errores
             ArrayList<String> errores = (ArrayList<String>) session.getAttribute("error");
             if(errores==null){
                 out.println("");
